@@ -3,3 +3,5 @@
 *.iml
 start
 main
+.DS_Store
+
