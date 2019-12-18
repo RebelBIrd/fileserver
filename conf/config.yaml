@@ -1,0 +1,11 @@
+api:
+  url: http://localhost:9000
+  port: 9000
+mysql:
+  url: 127.0.0.1:3306
+  username: root
+  password: 870752572
+  database: mecp_files
+http_key:
+  key1: WISESOFT
+  key2: MOBILE_IM_2019
