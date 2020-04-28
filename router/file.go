@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/snluu/uuid"
 
-	"github.com/qinyuanmao/fileserver/conf"
-	"github.com/qinyuanmao/fileserver/model"
-	"github.com/qinyuanmao/go-utils/fileutl"
+	"github.com/RebelBIrd/fileserver/conf"
+	"github.com/RebelBIrd/fileserver/fastDfs"
+	"github.com/RebelBIrd/fileserver/model"
 	"github.com/qinyuanmao/go-utils/httputl"
 	"github.com/qinyuanmao/go-utils/logutl"
 )
@@ -29,13 +29,13 @@ func (file FileFunc) uploadFile(context *gin.Context) {
 			context.JSON(http.StatusOK, httputl.RespSuccess(node))
 		} else {
 			file, _ := context.FormFile("file")
-			info := fileutl.GinFileHandler(file, FilePath, fileName)
+			info := fastDfs.GinFileHandler(file, FilePath, fileName)
 			if md5 == info.MD5 {
 				id := uuid.Rand().Hex()
 				node.ID = id
 				node.Name = info.Name
 				node.Path = info.Path
-				node.Url = conf.QsConfig.ApiConf.Url + "/file/" + id
+				node.Url = conf.QsConfig.ApiConf.Url + "/" + info.Path
 				node.Suffix = info.Suffix
 				node.Type = info.Type
 				node.Category = info.Category
@@ -46,7 +46,7 @@ func (file FileFunc) uploadFile(context *gin.Context) {
 					context.JSON(http.StatusOK, httputl.RespSuccess(node))
 				}
 			} else {
-				_ = fileutl.DeleteFile(info.Path)
+				_ = fastDfs.DeleteFile(info.Path)
 				context.JSON(http.StatusOK, httputl.RespFailed(int(httputl.RPCD_Failed), "md5与文件不对应！"))
 			}
 		}
@@ -59,7 +59,7 @@ func (file FileFunc) uploadFiles(context *gin.Context) {
 	form, _ := context.MultipartForm()
 	files := form.File["files"]
 	for _, file := range files {
-		info := fileutl.GinFileHandler(file, FilePath, "")
+		info := fastDfs.GinFileHandler(file, FilePath, "")
 		node := model.FileNode{MD5: info.MD5}
 		if exist := node.IsFileExist(); exist {
 			nodes = append(nodes, node)
@@ -157,6 +157,6 @@ func (file FileFunc) FindFileByType(context *gin.Context) {
 	query := httputl.GetParam(context, "query")
 	pageIndex := httputl.GetIntParam(context, "pageIndex")
 	pageSize := httputl.GetIntParam(context, "pageSize")
-	total, _, data := model.FindFindByType(fileutl.FileType(fileType), afterTime, query, pageSize, pageIndex)
+	total, _, data := model.FindFindByType(fastDfs.FileType(fileType), afterTime, query, pageSize, pageIndex)
 	context.JSON(http.StatusOK, httputl.RespArraySuccess(pageIndex, pageSize, total, data))
 }

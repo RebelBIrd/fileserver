@@ -4,15 +4,26 @@ import (
 	"time"
 
 	"github.com/LyricTian/gin-admin/pkg/errors"
+	"github.com/RebelBIrd/fileserver/fastDfs"
+
 	"github.com/snluu/uuid"
 
-	"github.com/qinyuanmao/go-utils/fileutl"
 	"github.com/qinyuanmao/go-utils/logutl"
 	"github.com/qinyuanmao/go-utils/ormutl"
 	"github.com/qinyuanmao/go-utils/pageutl"
 	"github.com/qinyuanmao/go-utils/strutl"
 	"github.com/qinyuanmao/go-utils/timeutl"
 )
+
+// type FileType int
+// type FileInfo struct {
+// 	Name     string
+// 	Suffix   string
+// 	Type     FileType
+// 	Category string
+// 	Path     string
+// 	MD5      string
+// }
 
 type FileNode struct {
 	ID       string           `xorm:"NOT NULL PK" json:"fileId"` //文件ID
@@ -23,7 +34,7 @@ type FileNode struct {
 	UpdateAt timeutl.Time     `xorm:"updated" json:"updateAt"`   //文件更新时间
 	MD5      string           `xorm:"NOT NULL" json:"md5"`       //文件MD5
 	Suffix   string           `json:"suffix,omitempty"`          //文件后缀
-	Type     fileutl.FileType `json:"type"`                      //文件类型
+	Type     fastDfs.FileType `json:"type"`                      //文件类型
 	Category string           `json:"category"`                  //文件分类目录
 	Other    string           `json:"other,omitempty"`           //文件备注
 }
@@ -76,7 +87,7 @@ func (node *FileNode) DeleteById() (err error) {
 	if err != nil {
 		logutl.Error(err.Error())
 	} else {
-		err = fileutl.DeleteFile(node.Path)
+		err = fastDfs.DeleteFile(node.Path)
 		if err != nil {
 			logutl.Error(err.Error())
 		}
@@ -98,7 +109,7 @@ func (node *FileNode) DeleteByMd5() (err error) {
 		if err != nil {
 			logutl.Error(err.Error())
 		}
-		err = fileutl.DeleteFile(node.Path)
+		err = fastDfs.DeleteFile(node.Path)
 		if err != nil {
 			logutl.Error(err.Error())
 		}
@@ -116,7 +127,7 @@ func (node *FileNode) DeleteByFileUrl() (err error) {
 	if err != nil {
 		logutl.Error(err.Error())
 	} else {
-		err = fileutl.DeleteFile(node.Path)
+		err = fastDfs.DeleteFile(node.Path)
 		if err != nil {
 			logutl.Error(err.Error())
 		}
@@ -138,7 +149,7 @@ func (node *FileNode) GetByFileUrl() (err error) {
 	return
 }
 
-func FindFindByType(fileType fileutl.FileType, afterTime int64, query string, pageSize, pageIndex int) (total int, count int, nodes []FileNode) {
+func FindFindByType(fileType fastDfs.FileType, afterTime int64, query string, pageSize, pageIndex int) (total int, count int, nodes []FileNode) {
 	if pageSize == 0 {
 		pageSize = 20
 	}

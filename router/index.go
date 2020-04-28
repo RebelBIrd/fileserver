@@ -1,13 +1,13 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/qinyuanmao/fileserver/utils"
-	"github.com/qinyuanmao/go-utils/fileutl"
-	"github.com/qinyuanmao/go-utils/httputl"
-	"github.com/qinyuanmao/go-utils/logutl"
 	"net/http"
 	"regexp"
+
+	"github.com/RebelBIrd/fileserver/utils"
+	"github.com/gin-gonic/gin"
+	"github.com/qinyuanmao/go-utils/httputl"
+	"github.com/qinyuanmao/go-utils/logutl"
 )
 
 const FilePath = "files"
@@ -15,7 +15,7 @@ const FilePath = "files"
 var Groups []httputl.BaseGroup
 
 func init() {
-	fileutl.PathExistOrCreate(FilePath)
+	// fileutl.PathExistOrCreate(FilePath)
 	Groups = append(Groups, httputl.BaseGroup{
 		Path: "file",
 		Routers: []httputl.BaseRouter{{

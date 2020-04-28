@@ -1,11 +1,12 @@
 package conf
 
 import (
-	"github.com/qinyuanmao/fileserver/model"
+	"io/ioutil"
+
+	"github.com/RebelBIrd/fileserver/model"
 	"github.com/qinyuanmao/go-utils/logutl"
 	"github.com/qinyuanmao/go-utils/ormutl"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
 )
 
 type ApiConf struct {

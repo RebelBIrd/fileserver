@@ -3,10 +3,10 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/qinyuanmao/fileserver/conf"
-	_ "github.com/qinyuanmao/fileserver/conf"
-	"github.com/qinyuanmao/fileserver/router"
-	_ "github.com/qinyuanmao/fileserver/router"
+	"github.com/RebelBIrd/fileserver/conf"
+	_ "github.com/RebelBIrd/fileserver/conf"
+	"github.com/RebelBIrd/fileserver/router"
+	_ "github.com/RebelBIrd/fileserver/router"
 	"github.com/qinyuanmao/go-utils/httputl"
 )
 

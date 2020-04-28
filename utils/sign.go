@@ -3,7 +3,7 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/qinyuanmao/fileserver/conf"
+	"github.com/RebelBIrd/fileserver/conf"
 	"strconv"
 	"strings"
 	"time"
