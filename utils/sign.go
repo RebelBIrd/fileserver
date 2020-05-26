@@ -3,7 +3,7 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/RebelBIrd/fileserver/conf"
+	"fileserver/conf"
 	"strconv"
 	"strings"
 	"time"
@@ -12,7 +12,7 @@ import (
 func CheckSign(timestamp, sign string) bool {
 	nowTimestamp := time.Now().Unix()
 	fromTimestamp, _ := strconv.ParseInt(timestamp, 10, 64)
-	if (nowTimestamp - fromTimestamp) > int64(60 * 5) {
+	if (nowTimestamp - fromTimestamp) > int64(60*5) {
 		return false
 	}
 	key1 := conf.QsConfig.Key1

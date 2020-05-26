@@ -1,16 +1,15 @@
 package router
 
 import (
+	"fileserver/conf"
+	"fileserver/fastDfs"
+	"fileserver/model"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/snluu/uuid"
-
-	"github.com/RebelBIrd/fileserver/conf"
-	"github.com/RebelBIrd/fileserver/fastDfs"
-	"github.com/RebelBIrd/fileserver/model"
 	"github.com/qinyuanmao/go-utils/httputl"
 	"github.com/qinyuanmao/go-utils/logutl"
+	"github.com/snluu/uuid"
 )
 
 type FileFunc struct{}

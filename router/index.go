@@ -1,10 +1,10 @@
 package router
 
 import (
+	"fileserver/utils"
 	"net/http"
 	"regexp"
 
-	"github.com/RebelBIrd/fileserver/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/qinyuanmao/go-utils/httputl"
 	"github.com/qinyuanmao/go-utils/logutl"

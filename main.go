@@ -1,12 +1,11 @@
 package main
 
 import (
+	"fileserver/conf"
+	"fileserver/router"
+
 	"github.com/gin-gonic/gin"
 
-	"github.com/RebelBIrd/fileserver/conf"
-	_ "github.com/RebelBIrd/fileserver/conf"
-	"github.com/RebelBIrd/fileserver/router"
-	_ "github.com/RebelBIrd/fileserver/router"
 	"github.com/qinyuanmao/go-utils/httputl"
 )
 

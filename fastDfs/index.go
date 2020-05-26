@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"path"
 	"strings"
@@ -40,7 +41,7 @@ var fastClient *fdfs_client.Client
 func GetFastDfsClient() (*fdfs_client.Client, error) {
 	var err error
 	if fastClient == nil {
-		fastClient, err = fdfs_client.NewClientWithConfig("../conf/fdfs.conf")
+		fastClient, err = fdfs_client.NewClientWithConfig("./conf/fdfs.conf")
 		if err != nil {
 			fmt.Println(err.Error())
 			return nil, err
@@ -85,9 +86,8 @@ func GinFileHandler(v *multipart.FileHeader, path, fileName string) (info *FileI
 			return
 		}
 		fileContent, _ := v.Open()
-		var byteContainer []byte
-		byteContainer = make([]byte, 1000000)
-		fileContent.Read(byteContainer)
+
+		byteContainer, err := ioutil.ReadAll(fileContent)
 		fileID, err := client.UploadByBuffer(byteContainer, fileExtName)
 		if err != nil {
 			fmt.Println(err.Error())

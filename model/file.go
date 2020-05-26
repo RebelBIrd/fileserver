@@ -1,10 +1,9 @@
 package model
 
 import (
+	"errors"
+	"fileserver/fastDfs"
 	"time"
-
-	"github.com/LyricTian/gin-admin/pkg/errors"
-	"github.com/RebelBIrd/fileserver/fastDfs"
 
 	"github.com/snluu/uuid"
 
